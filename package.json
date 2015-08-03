@@ -1,0 +1,27 @@
+{
+  "name": "btctrader",
+  "version": "0.0.1",
+  "description": "An order entry platform for the coinbase exchange",
+  "main": "dist/index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "recursion",
+  "license": "ISC",
+  "dependencies": {
+    "coinbase-exchange": "^0.2.0",
+    "gulp": "^3.9.0",
+    "mithril": "^0.2.0",
+    "nw": "^0.12.2",
+    "require-dir": "^0.3.0",
+    "socket.io-client": "^1.3.6"
+  },
+  "devDependencies": {
+    "del": "^1.2.0",
+    "gulp-babel": "^5.2.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-jshint": "^1.11.2",
+    "gulp-sourcemaps": "^1.5.2",
+    "jshint-stylish": "^2.0.1"
+  }
+}
