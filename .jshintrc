@@ -17,6 +17,7 @@
   "debug": true,
   "globals": {
       "_": false,
+      "CustomEvent": false,
       "window": false,
       "m": false,
       "describe": false,
