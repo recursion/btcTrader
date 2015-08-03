@@ -1,0 +1,33 @@
+.tradesContainer {
+  float: right;
+  border: 1px solid black;
+  width: 25%;
+}
+.trade {
+  background-color: black;
+  border: 1px solid red;
+  color: white;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+}
+.trade tr {
+  margin: 0 auto;
+}
+.uptick {
+  color: green;
+}
+.downtick {
+  color: red;
+}
+.unchtick {
+  color: grey;
+}
+.tradesContainer td {
+  margin: 0 auto;
+  width: 25%;
+  text-align: center;
+}
+.tradesContainer .small {
+  width: 5%;
+}
