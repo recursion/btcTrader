@@ -14,8 +14,8 @@ App.vm = (function() {
 
 App.view = function(){
   return [
-    m.component(Trade),
+    m.component(Orderbook),
     m.component(Product),
-    m.component(Orderbook)
+    m.component(Trade)
   ];
 };

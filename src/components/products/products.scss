@@ -1,0 +1,11 @@
+.products {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.products a {
+  display: inline-block;
+  margin: 0 10px;
+  text-decoration: none;
+}

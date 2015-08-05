@@ -1,3 +1,5 @@
+const CB_API= 'https://api.exchange.coinbase.com';
+
 let Trade = {};
 
 Trade.model = function(data){
@@ -5,12 +7,19 @@ Trade.model = function(data){
   this.tick = m.prop('none');
 };
 
-// keep a collection
-Trade.list = Array;
+// return a ticker
+Trade.list = function(){
+  return m.request({method: "GET", url: CB_API + "/products/BTC-USD/trades"})
+    .then(function(trades){
+      return trades;
+    });
+};
+
 
 Trade.controller = function(){
   Trade.vm.init();
 };
+
 
 // view-model
 Trade.vm = (function() {
@@ -21,11 +30,26 @@ Trade.vm = (function() {
   vm.lastTrade = 0;
 
   vm.init = function(){
-    vm.list = new Trade.list();
+
+    vm.list = m.prop([]);
+
+    // load our list of trades
+    Trade.list()
+      .then(function(trades){
+
+        // reverse the list and add each trade to our trade list
+        trades.reverse().forEach(function(trade){
+
+          // format price and size
+          trade.price = Number(trade.price).toFixed(2);
+          trade.size = +trade.size
+
+          vm.add(trade);
+
+        });
+      });
 
     vm.add = function(trade){
-
-      console.log(trade);
 
       // get this trade, set the tick (compared to last)
       var t = new Trade.model(trade);
@@ -37,7 +61,7 @@ Trade.vm = (function() {
         t.tick = 'unchtick';
       }
       // add the trade to our list
-      vm.list.unshift(t);
+      vm.list().unshift(t);
 
       // set last trade tot this one
       vm.lastTrade = trade;
@@ -56,10 +80,10 @@ Trade.vm = (function() {
 }());
 
 Trade.view = function(){
-  return m('.tradesContainer', [
+  return m('.trades', [
     m('h3', 'Trades'),
     m('table.trade', [
-      Trade.vm.list.map(function(trade){
+      Trade.vm.list().map(function(trade){
         return m('tr', {className: trade.tick}, [
           m('td', [
             m('span', trade.trade().size),
