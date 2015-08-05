@@ -1,0 +1,28 @@
+.orderbook {
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.orderbook table {
+  width: 15em;
+  margin: 0 auto;
+  text-align: right;
+}
+
+.orderbook td {
+  margin: 0 auto;
+  padding: 10px;
+  width: 50%;
+}
+
+.bid {
+  color: green;
+}
+
+.ask {
+  color: red;
+}

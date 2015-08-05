@@ -52,10 +52,10 @@ Product.vm = (function() {
 }());
 
 Product.view = function(){
-  return m('div', [
+  return m('.products', [
     Product.vm.list.map(function(product){
       return [
-        m('p', {onclick: Product.vm.click}, product.display_name())
+        m('a', {onclick: Product.vm.click}, product.display_name())
       ]
     })
   ]);

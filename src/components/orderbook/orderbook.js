@@ -16,9 +16,9 @@ Orderbook.model = function(data){
 };
 
 Orderbook.load = function(){
-  return m.request({method: 'GET', url: CB_API + '/products/BTC-USD/book?level=2'})
+  // TODO: change to level 3, build a model to sort the full orderbook locally
+  return m.request({method: 'GET', url: CB_API + '/products/BTC-USD/book?level=3'})
     .then(function(book){
-      console.log(book);
       return new Orderbook.model(book);
     });
 };
@@ -32,8 +32,18 @@ Orderbook.vm = (function() {
 
   var vm = {};
 
+  vm.orderbook = {};
+  vm.orderbook.asks = m.prop([]);
+  vm.orderbook.bids = m.prop([]);
+
   vm.init = function(){
-    vm.orderbook = Orderbook.load();
+
+    Orderbook.load()
+      .then(function(orderbook){
+        vm.orderbook.asks = orderbook.asks;
+        vm.orderbook.bids = orderbook.bids;
+        m.redraw();
+      });
   }
 
   return vm;
@@ -41,10 +51,26 @@ Orderbook.vm = (function() {
 }());
 
 Orderbook.view = function(){
-  return m('.orderbookContainer', [
-    m('.orderbook', [
-      Orderbook.vm.orderbook.map(function(order){
-        m('p', order)
+  return m('.orderbook', [
+    m('table', [
+      Orderbook.vm.orderbook.asks().slice(0, 10).reverse().map(function(order){
+        return [
+          m('tr', [
+            m('td', order[1]),
+            m('td', {className: 'ask'}, order[0])
+          ])
+        ]
+      })
+    ]),
+    m('br'),
+    m('table', [
+      Orderbook.vm.orderbook.bids().slice(0, 10).map(function(order){
+        return [
+          m('tr', [
+            m('td', order[1]),
+            m('td', {className: 'bid'}, order[0])
+          ])
+        ]
       })
     ])
   ]);
