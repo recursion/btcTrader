@@ -22,6 +22,7 @@
       "m": false,
       "describe": false,
       "xit": false,
+      "document": false,
       "it": false
   }
 }

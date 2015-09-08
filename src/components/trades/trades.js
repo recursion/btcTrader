@@ -103,3 +103,4 @@ Trade.view = function(){
     ])
   ]);
 };
+export default {Trade};

@@ -60,3 +60,4 @@ Product.view = function(){
     })
   ]);
 };
+export default {Product};
