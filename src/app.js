@@ -1,3 +1,7 @@
+import {Orderbook} from "./components/orderbook/orderbook.js";
+import {Product} from "./components/products/products.js";
+import {Trade} from "./components/trades/trades.js";
+
 let App = {};
 
 App.controller = function(){
@@ -19,3 +23,5 @@ App.view = function(){
     m.component(Trade)
   ];
 };
+
+m.mount(document.body, App)

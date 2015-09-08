@@ -1,8 +1,13 @@
 module.exports = {
+  // directory to build to
   dist: 'dist/',
-  // ensure app.js is loaded last
-  js: ['src/components/**/*.js', 'src/app.js'],
+  js: {
+    all: ['src/**/*.js'],
+    // main js file / entry point for babel/browserify
+    entry: 'src/app.js'
+  },
   html: ['src/index.html'],
   css: ['src/**/*.scss'],
-  vendor: ['node_modules/mithril/mithril.js']
+  // put any vendor files here
+  vendor: ['']
 };

@@ -76,4 +76,4 @@ Orderbook.view = function(){
   ]);
 };
 
-
+export default {Orderbook};

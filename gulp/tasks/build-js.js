@@ -1,24 +1,37 @@
-var gulp = require("gulp");
-var sourcemaps = require("gulp-sourcemaps");
-var babel = require("gulp-babel");
-var concat = require("gulp-concat");
+var gulp = require('gulp');
 var paths = require('../paths');
-var del = require('del');
+var sourcemaps = require('gulp-sourcemaps');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
+var browserify = require('browserify');
+var watchify = require('watchify');
+var babel = require('babelify');
 
-// clean just js - no minified js
-gulp.task('clean-js', function(cb){
-  del([paths.dist + '**/*.js'], cb);
+function compile(watch) {
+  var bundler = watchify(browserify(paths.js.entry, { debug: true }).transform(babel));
+
+  function rebundle() {
+    bundler.bundle()
+      .on('error', function(err) { console.error(err); this.emit('end'); })
+      .pipe(source('app.js'))
+      .pipe(buffer())
+      .pipe(sourcemaps.init({ loadMaps: true }))
+      .pipe(sourcemaps.write('./'))
+      .pipe(gulp.dest(paths.dist));
+  }
+
+  if (watch) {
+    bundler.on('update', function() {
+      gulp.start('lint');
+      console.log('-> bundling...');
+      rebundle();
+    });
+  }
+
+  rebundle();
+}
+export {compile};
+
+gulp.task('build-js', ['lint'], function(){
+  return compile();
 });
-
-gulp.task('build-js', ['lint', 'clean-js'], function() {
-
-  return gulp.src(paths.vendor.concat(paths.js))
-    .pipe(sourcemaps.init())
-    .pipe(babel())
-    .pipe(concat("app.js"))
-    .pipe(sourcemaps.write("."))
-    .pipe(gulp.dest("dist"));
-
-});
-
-
