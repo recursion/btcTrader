@@ -29,6 +29,11 @@ function compile(watch) {
   }
 
   rebundle();
+
+  // we also need to copy services to dist
+  return gulp.src(paths.js.services, {base: './src'})
+    .pipe(gulp.dest(paths.dist));
+
 }
 export {compile};
 

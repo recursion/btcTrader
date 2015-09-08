@@ -1,5 +1,3 @@
-require('./components/websocket/socket.js');
-
 import {Orderbook} from "./components/orderbook/orderbook.js";
 import {Product} from "./components/products/products.js";
 import {Trade} from "./components/trades/trades.js";
