@@ -8,6 +8,12 @@
     <div id="trades"></div>
     <script src="../node_modules/mithril/mithril.min.js"></script>
     <script src="services/websocket/socket.js"></script>
+    <script>
+      // Setup an orderbook sync object
+      // and log its state to console every 5 seconds
+      var CoinbaseExchange = require('coinbase-exchange');
+      var CoinbaseSyncedOrderbook = new CoinbaseExchange.OrderbookSync();
+    </script>
     <script src="app.js"></script>
   </body>
 </html>
